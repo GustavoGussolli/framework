@@ -23,12 +23,25 @@ function configEstiloLinks(){
 }
 
 function configHTMLLinks(){
-    return '<a href="#">Link Exemplo</a>';
+
+    links=document.querySelector("#links").value;
+    vetLinks=links.split(";");
+    ctxLinks="";
+
+    for(let i=0; i<vetLinks.length;i++){
+
+        ctxLinks += '<a href="#">'+vetLinks[i]+'</a>';
+    }
+
+    return ctxLinks;
+    
 }
 
 function configHTMLCabecalho(){
     let aux = document.querySelector("#textoCabecalho").value;
-    return '<h1>'+aux+'</h1>';
+    ctxCabecalho = '<h1>'+aux+'</h1>'
+    return ctxCabecalho;
+
 }
 
 function gerarCodigo(){
@@ -51,4 +64,15 @@ function gerarCodigo(){
     codeHTML.value = ctxHTML;
 }
 
-function download(campo, arquivo){}
+function download(campo, arquivo){
+
+    var text = document.getElementById(campo).value;
+    var blob = new Blob([text], {type: "text/plain"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = arquivo;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+}
